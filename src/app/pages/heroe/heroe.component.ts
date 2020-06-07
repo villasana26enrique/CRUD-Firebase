@@ -33,7 +33,7 @@ export class HeroeComponent implements OnInit {
     });
   }
 
-  save() {
+  send() {
 
     if ( this.form.invalid ) {
       console.log('Formulario no válido');
