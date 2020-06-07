@@ -1,1 +1,49 @@
-<p>heroes-list works!</p>
+<div>
+    <h1>Lista de Heroes</h1>
+</div>
+<hr>
+<div class="row">
+    <div class="col text-right">
+        <button class="btn btn-primary" routerLink="/heroe/new">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+</div>
+
+<table class="table mt-2">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Poder</th>
+            <th scope="col">Vivo</th>
+            <th scope="col">Herramientas</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>@mdo</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="alert alert-dark text-center mt-2">
+    <h4 class="alert-heading">No Hay Registros</h4>
+    <p>
+        <i class="fa fa-warning fa-2x mb-0"></i>
+    </p>
+</div>
+
+<div class="alert alert-info text-center mt-2">
+    <h4 class="alert-heading">Cargando</h4>
+    <p>
+        <i class="fa fa-spinner fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">
+        Espere por favor
+    </p>
+</div>
