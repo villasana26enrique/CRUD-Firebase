@@ -14,7 +14,7 @@
         <form [formGroup]="form" (ngSubmit)="save()">
             <div class="form-froup">
                 <label>FirebaseID:</label>
-                <input class="form-control" type="text" formControlName="firebase_id">
+                <input class="form-control" type="text" formControlName="id">
                 <small class="form-text text-muted">Este campo es autogenerado</small>
             </div>
             <div class="form-froup mt-2">
@@ -28,11 +28,11 @@
             <div class="form-group mt-2">
                 <label>Estado</label>
                 <br>
-                <button class="btn btn-outline-success w-50" type="button">
+                <button *ngIf="heroe.alive" (click)="heroe.alive = false" class="btn btn-outline-success w-50" type="button">
                     <i class="fa fa-smile-wink"></i>
                     Vivo
                 </button>
-                <button class="btn btn-outline-danger w-50" type="button">
+                <button *ngIf="!heroe.alive" (click)="heroe.alive = true" class="btn btn-outline-danger w-50" type="button">
                     <i class="fa fa-dizzy"></i>
                     Muerto
                 </button>
