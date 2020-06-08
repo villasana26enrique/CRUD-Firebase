@@ -12,9 +12,9 @@
 <div class="row fadeIn fast">
     <div class="col">
         <form [formGroup]="form" (ngSubmit)="send()">
-            <div class="form-froup">
+            <div class="form-froup" style="display: none;">
                 <label>FirebaseID:</label>
-                <input class="form-control" type="text" formControlName="id">
+                <input class="form-control" type="hidden" formControlName="id">
                 <small class="form-text text-muted">Este campo es autogenerado</small>
             </div>
             <div class="form-froup mt-2">
@@ -28,11 +28,11 @@
             <div class="form-group mt-2">
                 <label>Estado</label>
                 <br>
-                <button *ngIf="heroe.alive" (click)="heroe.alive = false" class="btn btn-outline-success w-50" type="button">
+                <button *ngIf="alive" (click)="alive = false" class="btn btn-outline-success w-50" type="button">
                     <i class="fa fa-smile-wink"></i>
                     Vivo
                 </button>
-                <button *ngIf="!heroe.alive" (click)="heroe.alive = true" class="btn btn-outline-danger w-50" type="button">
+                <button *ngIf="!alive" (click)="alive = true" class="btn btn-outline-danger w-50" type="button">
                     <i class="fa fa-dizzy"></i>
                     Muerto
                 </button>

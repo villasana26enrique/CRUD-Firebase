@@ -11,17 +11,18 @@ import { HeroesService } from '../../services/heroes.service';
 export class HeroeComponent implements OnInit {
 
   heroe = new HeroeModel();
+  alive = this.heroe.alive;
   form: FormGroup;
 
   constructor(private fb: FormBuilder,
               private heroeService: HeroesService) {
     this.createForm();
-    this.loadForm();
+    // this.loadForm();
   }
 
   private createForm() {
     this.form = this.fb.group({
-      id    : [ { value: this.heroe.id, disabled: true } ],
+      id    : [ this.heroe.id ],
       name  : [ this.heroe.name, [ Validators.required] ],
       power : [ this.heroe.power ]
     });
@@ -44,10 +45,14 @@ export class HeroeComponent implements OnInit {
 
     this.heroe = {
       ...this.form.value,
-      ...this.heroe
+      alive: this.alive
     };
 
-    this.heroeService.createHeroe$( this.heroe ).subscribe( data => this.form.get('id').setValue( this.heroe.id ) );
+    if ( this.form.value.id ) {
+      this.heroeService.updateHeroe$( this.heroe ).subscribe( data => console.log );
+    } else {
+      this.heroeService.createHeroe$( this.heroe ).subscribe( data => this.form.get('id').setValue( this.heroe.id ) );
+    }
   }
 
   ngOnInit(): void {}

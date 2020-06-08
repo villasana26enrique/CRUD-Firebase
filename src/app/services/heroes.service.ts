@@ -14,12 +14,26 @@ export class HeroesService {
     console.log('Servicio Iniciado');
   }
 
-  createHeroe$(heroe: HeroeModel) {
+  createHeroe$( heroe: HeroeModel ) {
     return this.http.post(`${ this.url }/heroes.json`, heroe).pipe(
       map((resp: any) => {
         heroe.id = resp.name;
         return heroe;
       })
     );
+  }
+
+  updateHeroe$( heroe: HeroeModel ) {
+    /* Creo un objeto nuevo igual que el heroe que recibo,
+    ya que se va a modificar. Se Eliminara el ID para que
+    no se cree una propiedad nueva en FB. Y si lo elimino
+    en el objeto que recibo, se va a perder la referencia 
+    en el objeto original*/
+    const heroeRequest = {
+      ...heroe
+    };
+    /* Eliminamos */
+    delete heroeRequest.id;
+    return this.http.put(`${ this.url }/heroes/${ heroe.id }.json`, heroeRequest);
   }
 }
