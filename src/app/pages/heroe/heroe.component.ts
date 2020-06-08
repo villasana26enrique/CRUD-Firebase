@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HeroeModel } from '../../models/heroe.model';
+import { HeroesService } from '../../services/heroes.service';
 
 @Component({
   selector: 'app-heroe',
@@ -12,16 +13,17 @@ export class HeroeComponent implements OnInit {
   heroe = new HeroeModel();
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private heroeService: HeroesService) {
     this.createForm();
     this.loadForm();
   }
 
   private createForm() {
     this.form = this.fb.group({
-      id    : [ { value: '', disabled: true } ],
-      name  : [ '', [ Validators.required] ],
-      power : [ '' ]
+      id    : [ { value: this.heroe.id, disabled: true } ],
+      name  : [ this.heroe.name, [ Validators.required] ],
+      power : [ this.heroe.power ]
     });
   }
 
@@ -40,12 +42,12 @@ export class HeroeComponent implements OnInit {
       return;
     }
 
-    let heroeRequest: HeroeModel;
-    heroeRequest = {
+    this.heroe = {
       ...this.form.value,
       ...this.heroe
     };
-    console.log(heroeRequest);
+
+    this.heroeService.createHeroe$( this.heroe ).subscribe( data => this.form.get('id').setValue( this.heroe.id ) );
   }
 
   ngOnInit(): void {}
