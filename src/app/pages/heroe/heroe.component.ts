@@ -4,6 +4,7 @@ import { HeroeModel } from '../../models/heroe.model';
 import { HeroesService } from '../../services/heroes.service';
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-heroe',
@@ -17,9 +18,28 @@ export class HeroeComponent implements OnInit {
   form: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private heroeService: HeroesService) {
+              private heroeService: HeroesService,
+              private activatedRoute: ActivatedRoute) {
+    this.obtenerParametro();
     this.createForm();
+  }
+
+  ngOnInit(): void {
     // this.loadForm();
+  }
+
+  obtenerParametro() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id === 'new') {
+      return;
+    } else {
+      this.heroeService.getHeroeById$( id ).subscribe((resp: HeroeModel) => {
+        this.heroe = resp;
+        this.heroe.id = id;
+        this.alive = this.heroe.alive;
+        this.loadForm();
+      });
+    }
   }
 
   private createForm() {
@@ -74,7 +94,5 @@ export class HeroeComponent implements OnInit {
       });
     });
   }
-
-  ngOnInit(): void {}
 
 }
