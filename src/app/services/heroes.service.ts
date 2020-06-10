@@ -37,6 +37,11 @@ export class HeroesService {
     return this.http.put(`${ this.url }/heroes/${ heroe.id }.json`, heroeRequest);
   }
 
+  deleteHeroe$( id: string ) {
+    console.log(id);
+    return this.http.delete(`${ this.url }/heroes/${ id }.json`);
+  }
+
   getHeroeById$( id: string ) {
     return this.http.get(`${ this.url }/heroes/${ id }.json`);
   }
