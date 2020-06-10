@@ -10,12 +10,23 @@ import Swal from 'sweetalert2';
 })
 export class HeroesListComponent implements OnInit {
 
+  loading = false;
+  empty = false;
   heroes: HeroeModel[] = [];
 
   constructor(private heroesService: HeroesService) { }
 
   ngOnInit(): void {
-    this.heroesService.getHeroes$().subscribe( resp => this.heroes = resp );
+    this.loading = true;
+    this.heroesService.getHeroes$().subscribe( resp => {
+      this.heroes = resp;
+      if (this.heroes.length === 0) {
+        this.loading = false;
+        this.empty = true;
+      } else {
+        this.loading = false;
+      }
+    });
   }
 
   deleteHeroe(heroe: HeroeModel, index: number) {
@@ -29,6 +40,7 @@ export class HeroesListComponent implements OnInit {
       if ( resp.value ) {
         // Actualizo el listado de heroes, utilizando el Splice para eliminar una posición del Array
         this.heroes.splice(index, 1);
+        if ( this.heroes.length === 0 ) { this.empty = true; }
         this.heroesService.deleteHeroe$( heroe.id ).subscribe();
         Swal.fire({
           title: heroe.name,

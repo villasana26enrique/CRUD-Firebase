@@ -41,14 +41,14 @@
     </tbody>
 </table>
 
-<div class="alert alert-dark text-center mt-2">
+<div *ngIf="empty" class="alert alert-dark text-center mt-2">
     <h4 class="alert-heading">No Hay Registros</h4>
     <p>
         <i class="fa fa-warning fa-2x mb-0"></i>
     </p>
 </div>
 
-<div class="alert alert-info text-center mt-2">
+<div *ngIf="loading" class="alert alert-info text-center mt-2">
     <h4 class="alert-heading">Cargando</h4>
     <p>
         <i class="fa fa-spinner fa-spin fa-2x"></i>
